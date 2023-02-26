@@ -32,3 +32,7 @@
 
 # docker compose up
 # docker-compose -f docker-compose-single-broker.yml up -d
+
+# Zipkin 컨테이너 생성 및 실행
+# docker run -d -p 9411:9411 --network ecommerce-network --name zipkin openzipkin/zipkin
+
