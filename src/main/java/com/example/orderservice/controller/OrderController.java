@@ -81,18 +81,18 @@ public class OrderController {
     orderDto.setUserId(userId);
 
     /* JPA */
-//    OrderDto createdOrder = orderService.createOrder(orderDto);
-//    ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
+    OrderDto createdOrder = orderService.createOrder(orderDto);
+    ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
 
     /* Kafka */
-    orderDto.setOrderId(UUID.randomUUID().toString());
-    orderDto.setTotalPrice(orderDetails.getQty() * orderDetails.getUnitPrice());
+//    orderDto.setOrderId(UUID.randomUUID().toString());
+//    orderDto.setTotalPrice(orderDetails.getQty() * orderDetails.getUnitPrice());
 
     /* Send this order to the kafka */
     kafkaProducer.send("example-category-topic", orderDto);
-    orderProducer.send("orders", orderDto);
+//    orderProducer.send("orders", orderDto);
 
-    ResponseOrder responseOrder = mapper.map(orderDto, ResponseOrder.class);
+//    ResponseOrder responseOrder = mapper.map(orderDto, ResponseOrder.class);
 
     log.info("After added orders data");
     return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);
@@ -107,6 +107,8 @@ public class OrderController {
     orderList.forEach(v -> {
       result.add(new ModelMapper().map(v, ResponseOrder.class));
     });
+
+    log.info("Add retrieved orders data");
 
     return ResponseEntity.status(HttpStatus.OK).body(result);
   }

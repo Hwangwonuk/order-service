@@ -1,3 +1,20 @@
+FROM openjdk:17-jdk-slim
+VOLUME /tmp
+COPY target/order-service-1.0.jar OrderService.jar
+ENTRYPOINT ["java","-jar","OrderService.jar"]
+
+# order-service docker image 생성
+# docker build -t hwk0173/order-service:1.0 .
+
+# order-service docker container 생성 및 실행.
+# docker run -d --network ecommerce-network \
+#  --name order-service \
+# -e "spring.zipkin.base-url=http://zipkin:9411" \
+# -e "eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/" \
+# -e "spring.datasource.url=jdbc:mariadb://mariadb:3306/mydb" \
+# -e "logging.file=/api-logs/orders-ws.log" \
+# hwk0173/order-service:1.0
+
 
 # Kafka Docker compose
 #version: '2'
